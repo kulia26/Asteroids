@@ -28,7 +28,6 @@ Enemy::Enemy(Enemy::Type type, QPoint start,double speed)
   rect  = QRect(start.x(),start.y(),frame->width()*3,frame->height()*3);
   canAttack = false;
   lives = 1;
-
 }
 
 Enemy::~Enemy()

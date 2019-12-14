@@ -10,5 +10,11 @@
         <file>images/PlayerShotSprite.png</file>
         <file>images/EnemyShotSprite.png</file>
         <file>images/ExplosionSprites2.png</file>
+        <file>images/logo.png</file>
+        <file>images/Asteroid.png</file>
+        <file>images/explosionAsteroid.png</file>
+    </qresource>
+    <qresource prefix="/data">
+        <file>data/highscore.txt</file>
     </qresource>
 </RCC>

@@ -16,7 +16,7 @@
 class GameObject: public Drawed, protected Routed, public Moved
 {
 public:
-  enum class Type{Player, Enemy, Explosion, EnemyShot, PlayerShot};
+  enum class Type{Player, Enemy, Explosion, EnemyShot, PlayerShot, Asteroid};
 
   GameObject() = default;
   virtual ~GameObject() = default;
@@ -30,6 +30,7 @@ public:
   Type getType();
   void  hurt();
   bool isAlive();
+  void moveRectTo(QPoint point);
 
   virtual void read(const QJsonObject &json);
   virtual void write(QJsonObject &json) const;

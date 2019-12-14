@@ -1,45 +1,38 @@
 ﻿#include "explosion.h"
-#include "iostream"
 
-Explosion::Explosion(QPoint point, Type type)
+QVector<QPixmap*> Explosion::frames;
+
+Explosion::Explosion(QPoint point)
 {
-  this->expType = type;
-  this->gameObjectType = GameObject::Type::Explosion;
-  if(expType == Type::EnemyDie){
-      pixmap = QPixmap(":/images/images/ExplosionSprites.png");
-      lives = 5;
-      makeFramesFromPixmap();
-      rect  = QRect(point.x()-30,point.y()-30,frame->width()*3,frame->height()*3);
-
-    }else{
-      pixmap = QPixmap(":/images/images/ExplosionSprites2.png");
-      lives = 4;
-      makeFramesFromPixmap();
-      rect  = QRect(point.x()-10,point.y()-10,frame->width()*3,frame->height()*3);
-    }
-
-}
-
-void Explosion::animate(Animation){
-
-if(this->isAlive() && frame != frames.last()){
-    int index = frames.indexOf(frame);
-    frame = frames[index + 1];
-  }
-if(!this->isAlive()){
-    frame = frames.last();
-  }
-hurt();
-}
-
-void Explosion::makeFramesFromPixmap(){
-  frames.reserve(5);
-  for(int i=0; i<lives;i++){
-      frames.push_back(new QPixmap(pixmap.copy(30*i,0,30,24)));
-    }
-  QPixmap copy  = frames.first()->copy();
-  frames.push_front(&copy);
+  gameObjectType = GameObject::Type::Asteroid;
+  rect  = QRect(point.x(),point.y(),100,100);
   frame = frames.first();
+  lives = 1;
+}
+
+bool Explosion::makeFramesFromPixmap(){
+  if(frames.isEmpty()){
+      static const QPixmap pixmap(":/images/images/explosionAsteroid.png");
+      for(int i=0; i<32;i++){
+          frames.push_back(new QPixmap(pixmap.copy(i*62,0,62,62)));
+        }
+    }
+  return true;
+}
+
+void Explosion::animate(Animated::Animation type){
+  if(frame != frames.last()){
+      frame = frames[frames.indexOf(frame)+1];
+    }else{
+      frame = frames.first();
+    }
+  hurt();
+}
+
+void Explosion::reuse(QPoint point){
+rect  = QRect(point.x(),point.y(),100,100);
+frame = frames.first();
+lives = 32;
 }
 
 void Explosion::draw(std::shared_ptr<QPainter> painter)
@@ -47,26 +40,20 @@ void Explosion::draw(std::shared_ptr<QPainter> painter)
   painter->drawPixmap(rect,*frame);
 }
 
+void Explosion::read(const QJsonObject &json)
+{
+
+}
+
+void Explosion::write(QJsonObject &json) const
+{
+
+
+}
+
 void Explosion::move()
 {
 
+
 }
 
-void Explosion::reuse(QPoint point)
-{
-  rect.moveTopLeft(point - QPoint(30,30));
-  if(this->expType == Type::PlayerDie){
-      rect.moveTopLeft(point-QPoint(10,10));
-    }
-  if(this->expType == Type::EnemyDie){
-      lives = 5;
-    }else{
-      lives = 4;
-    }
-  frame = frames.first();
-}
-
-Explosion::Type Explosion::getType()
-{
-  return this->expType;
-}

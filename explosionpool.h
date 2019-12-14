@@ -5,7 +5,7 @@
 class ExplosionPool
 {
 public:
-  std::shared_ptr<Explosion> createNew(QPoint point, Explosion::Type type);
+  std::shared_ptr<Explosion> createNew(QPoint point);
   static ExplosionPool& getInstance();
 private:
   struct PooledExplosion{

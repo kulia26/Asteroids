@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Galaga2
+TARGET = Asteroids
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -32,14 +32,15 @@ SOURCES += \
     gameobject.cpp \
     shot.cpp \
     enemy.cpp \
-    explosion.cpp \
     route.cpp \
     shooter.cpp \
     physicalobject.cpp \
     enemiesfactory.cpp \
     shotpool.cpp \
     explosionpool.cpp \
-    wave.cpp
+    wave.cpp \
+    asteroid.cpp \
+    explosion.cpp
 
 HEADERS += \
         game.h \
@@ -48,7 +49,6 @@ HEADERS += \
     gameobject.h \
     shot.h \
     enemy.h \
-    explosion.h \
     route.h \
     animated.h \
     shooter.h \
@@ -59,7 +59,9 @@ HEADERS += \
     enemiesfactory.h \
     shotpool.h \
     explosionpool.h \
-    wave.h
+    wave.h \
+    asteroid.h \
+    explosion.h
 
 FORMS += \
         game.ui

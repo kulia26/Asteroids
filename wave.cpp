@@ -4,7 +4,7 @@
 Wave::Wave(Type type){
   int j = 5;
   if(type == Type::Easy){
-      j = 5;
+      j = 15;
     }
   if(type == Type::Middle){
       j = 7;
@@ -16,11 +16,8 @@ Wave::Wave(Type type){
       j = 10;
     }
   for(int i =0; i<j; i++){
-      std::shared_ptr<Enemy> enemy (EnemiesFactory::newFly(QPoint(600,800) + 40*i*QPoint(1,1),5+j));
-      enemy->addRoute(Route::Path::Line,QPoint(150,200));
-      enemy->addRoute(Route::Path::HalfCircleRightLeft);
-      enemy->addRoute(Route::Path::Line,QPoint(500,200) + 40*i*QPoint(-1,0)+ 10*QPoint(0,i%2+1));
-      enemy->addRoute(Route::Path::Stay);
+      std::shared_ptr<Enemy> enemy (EnemiesFactory::newFly(QPoint(0,0) - 40*i*QPoint(1,1),15));
+      enemy->addRoute(Route::Path::Line,QPoint(400,600) + 40*i*QPoint(1,1));
       enemies.push_back(enemy);
   }
   for(int i =0; i<j; i++){
